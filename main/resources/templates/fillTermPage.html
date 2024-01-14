@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Motorbike Detail</title>
+    <style type="text/css">
+		body {
+		    font-family: 'Arial', sans-serif;
+		    background-color: #f4f4f4;
+		    margin: 0;
+		}
+		.error-message {
+		    color: red;
+		    margin-top: 5px;
+	    }
+		.container {
+		    max-width: 800px;
+		    margin: 50px auto;
+		    padding: 20px;
+		    background-color: #fff;
+		    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+		
+		h1, h2 {
+		    color: #333;
+		}
+		
+		p {
+		    margin: 0;
+		}
+		
+		.form-section {
+		    margin-top: 20px;
+		}
+		
+		form {
+		    margin-top: 20px;
+		}
+		
+		label {
+		    display: block;
+		    margin-bottom: 5px;
+		    color: #333;
+		}
+		
+		input {
+		    width: 100%;
+		    padding: 8px;
+		    margin-bottom: 10px;
+		    box-sizing: border-box;
+		    border: 1px solid #ccc;
+		    border-radius: 4px;
+		}
+		
+		button {
+		    background-color: #007bff;
+		    color: #fff;
+		    padding: 10px 15px;
+		    border: none;
+		    border-radius: 4px;
+		    cursor: pointer;
+		}
+		
+		button:hover {
+		    background-color: #0056b3;
+		}    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thông tin hợp đồng</h1>
+			
+        <div>
+            <h2>Thông tin xe</h2>
+            <p><strong>Tên xe:</strong> <span th:text="${partnerContractDetail.motorbike.name}"></span></p>
+            <p><strong>Tên công ty:</strong> <span th:text="${partnerContractDetail.motorbike.companyName}"></span></p>
+            <p><strong>Biển số:</strong> <span th:text="${partnerContractDetail.motorbike.licensePlate}"></span></p>
+            <p><strong>Số khung:</strong> <span th:text="${partnerContractDetail.motorbike.frameNumber}"></span></p>
+            <p><strong>Số máy:</strong> <span th:text="${partnerContractDetail.motorbike.machineNumber}"></span></p>
+            <p><strong>Màu:</strong> <span th:text="${partnerContractDetail.motorbike.color}"></span></p>
+            <p><strong>Giá trị:</strong> <span th:text="${partnerContractDetail.motorbike.value}"></span></p>
+        </div>
+
+        <div class="form-section">
+            <h2>Thông tin hợp đồng</h2>
+            <form th:object="${partnerContractDetail}" action="/partner_contract_detail/addTerm" method="get">
+            	<div class="error-message" th:if="${error}">
+		        	<p th:text="${error}"></p>
+		      	</div>
+                <input type="hidden" name="motorbike" th:value="${partnerContractDetail.motorbike.id}"/>
+                <input type="hidden" name="partnerContract" th:value="${partnerContractDetail.partnerContract.id}"/>
+                <div>
+			        <label for="cost">Chi phí:</label>
+			        <input type="text" id="cost" name="cost" th:field="*{cost}" />
+			    </div>
+			    <div>
+			        <label for="dateStart">Ngày bắt đầu:</label>
+			        <input type="date" id="dateStart" name="dateStart" th:field="*{dateStart}" />
+			    </div>
+			    <div>
+			        <label for="dateEnd">Ngày kết thúc:</label>
+			        <input type="date" id="dateEnd" name="dateEnd" th:field="*{dateEnd}" />
+			    </div>
+                <button type="submit">OK</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

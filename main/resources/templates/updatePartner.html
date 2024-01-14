@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Partner Form</title>
+    
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .form-section {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .form-section .left-section {
+            flex: 1;
+            padding-right: 20px;
+        }
+        h2 {
+        	text-align: center;
+        	margin-bottom: 30px;
+        }
+        
+        .right-section {
+            flex: 1;
+        }
+        
+        .upload-section {
+            margin-top: 20px;
+        }
+        
+        .div1, .div2 {
+        	margin-right: 100px;
+		  	display: inline-block;
+		}
+        
+        .div3, .div4 {
+        	margin-right: 100px;
+		  	display: inline-block;
+		}
+        .uploaded-image {
+            margin-top: 20px;
+            max-width: 300px;
+        }
+        .error-message {
+		    color: red;
+		    margin-bottom: 10px;
+	    }
+	    
+	    #description {
+	    	width: 500px;
+	    	height: 50px;
+	    }
+	    
+	    #title, #author, #release_date, #num_pages, #category{
+	    	width: 200px;
+	    	height: 30px;
+	    }
+	    
+	    #category {
+	    height: 50px
+	    }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+	<header class="navbar navbar-expand-lg navbar-dark bg-dark">
+		
+		    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+		    	<ul class="navbar-nav">
+		    		
+		        	<li class="nav-item">
+		          		<a class="nav-link" href="/logout">Đăng xuất</a>
+		        	</li>
+		      	</ul>
+		    </div>
+		</div>
+	</header> 
+	
+    <div class="container">
+        <h2>Đối tác</h2>
+        <form th:object="${partner}"  
+        		th:action="${editMode} ? @{/partner/save/{id}(id=${partner.id})} : @{/partner/save}" 
+      			th:method="${editMode} ? PUT : POST" 
+      			th:onsubmit="return confirm('Bạn có chắc chắn với cập nhật này?')">
+            <div class="form-section">
+                <div class="left-section">
+                
+                	<div class="form-section error-message" th:if="${error}">
+        				<p th:text="${error}"></p>
+      				</div>
+      				<div class="form-group" >
+	                    <label for="people.id"></label>
+	                    <input type="hidden" class="form-control" required th:field="*{people.id}" name="people.id" id="people.id">
+	                </div>
+                    <div class="form-group">
+	                    <label for="people.name">Tên</label>
+	                    <input type="text" class="form-control" required th:field="*{people.name}" name="people.name" id="people.name"
+	                           placeholder="Enter name">
+	                </div>
+                    <div class="form-group">
+	                    <label for="people.address">Địa chỉ</label>
+	                    <input type="text" class="form-control" required th:field="*{people.address}" name="people.address" id="people.address"
+	                           placeholder="Enter address">
+	                </div>
+                    <div class="form-group">
+	                    <label for="people.idenNumber">Số cccd</label>
+	                    <input type="text" class="form-control" required th:field="*{people.idenNumber}" name="people.idenNumber" id="people.idenNumber"
+	                           placeholder="Enter idenNumber">
+	
+	                </div>
+                    <div class="form-group">
+	                    <label for="people.phoneNumber">Số điện thoại</label>
+	                    <input type="text" class="form-control" required th:field="*{people.phoneNumber}" name="people.phoneNumber" id="people.phoneNumber"
+	                           placeholder="Enter phoneNumber">
+	
+	                </div>
+	                <div class="form-group">
+	                    <label for="people.dob">Ngày sinh</label>
+	                    <input type="date" class="form-control" required th:field="*{people.dob}" name="people.dob" id="people.dob"
+	                           placeholder="Enter dob">
+	
+	                </div>
+                    <div>
+                        <label for="bankName">Tên ngân hàng:</label> </br>
+                        <input type="text" class="form-control" required th:field="*{bankName}" name="bankName" id="bankName"
+	                           placeholder="Enter bankName">
+                    </div>
+                    <div>
+                        <label for="bankNumber">Số tài khoản:</label> </br>
+                        <input type="text" class="form-control" required th:field="*{bankNumber}" name="bankNumber" id="bankNumber"
+	                           placeholder="Enter bankNumber">
+                    </div>
+                </div>               
+            </div>
+            	<input class = "btn btn-success" type="submit" th:value="Save">
+        </form>       			
+    </div>
+</body>
+</html>
+        
+   
