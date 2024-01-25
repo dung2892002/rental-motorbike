@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Trang khách hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        h2 {
+            margin-top: 20px;
+        }
+        a {
+            display: block;
+            margin-bottom: 10px;
+        }
+	    .imageUser{
+	    	width: 60px;
+	    	height: 60px;
+	    	border-radius: 30px;
+	    }
+    </style>
+</head>
+<body>
+	<header class="navbar navbar-expand-lg navbar-dark bg-dark">
+		    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+		    	<ul class="navbar-nav">
+		        	<li class="nav-item">
+		          		<a class="nav-link" href="/logout">Đăng xuất</a>
+		        	</li>
+		      	</ul>
+		    </div>
+	</header> 
+    <div class="container">
+        <div class="infor">
+	        <img  class="imageUser" th:src="@{${'/userImages/' + user.imageName}}" alt="ảnh đại diện">
+	        <h3>Tên: <span th:text="${user.people.name}"></span></h2>
+	        <h3>Địa chỉ: <span th:text="${user.people.address}"></span></h2>
+	        <h3>Số CCCD: <span th:text="${user.people.idenNumber}"></span></h2>
+	        <h3>Số Điện Thoại: <span th:text="${user.people.phoneNumber}"></span></h2>
+	        <h3>Ngày sinh: <span th:text="${user.people.dob}"></span></h2>
+	        <a class="btn btn-primary" href="/changeInfor">Chỉnh sửa thông tin</a>
+        </div>
+        <a class="btn btn-primary" href="">Đặt xe</a>
+        <a class="btn btn-primary" href="">Thanh toán</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

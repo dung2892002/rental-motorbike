@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register Form</title>
+    
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .form-section {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .form-section .left-section {
+            flex: 1;
+            padding-right: 20px;
+        }
+        h2 {
+        	text-align: center;
+        	margin-bottom: 30px;
+        }
+        
+        .right-section {
+            flex: 1;
+        }
+        
+        .upload-section {
+            margin-top: 20px;
+        }
+        
+        .div1, .div2 {
+        	margin-right: 100px;
+		  	display: inline-block;
+		}
+        
+        .div3, .div4 {
+        	margin-right: 100px;
+		  	display: inline-block;
+		}
+        .uploaded-image {
+            margin-top: 20px;
+            max-width: 300px;
+        }
+        .error-message {
+		    color: red;
+		    margin-bottom: 10px;
+	    }
+	    
+	    #description {
+	    	width: 500px;
+	    	height: 50px;
+	    }
+	    
+	    #title, #author, #release_date, #num_pages, #category{
+	    	width: 200px;
+	    	height: 30px;
+	    }
+	    
+	    #category {
+	    height: 50px
+	    }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+	<header class="navbar navbar-expand-lg navbar-dark bg-dark">
+		
+		    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+		    	<ul class="navbar-nav">
+		    		
+		        	<li class="nav-item">
+		          		<a class="nav-link" href="/logout">Đăng xuất</a>
+		        	</li>
+		      	</ul>
+		    </div>
+	</header> 
+	
+    <div class="container">
+        <h2>Đăng ký</h2>
+        <form th:object="${customer}"  
+        		th:action="@{/register}" 
+      			th:method="POST" 
+      			th:onsubmit="return confirm('Bạn có chắc chắn muốn đăng ký?')">
+            <div class="form-section">
+            	<div class="left-section">
+      				<div class="form-group" >
+	                    <label for="user.username">Username</label>
+	                    <input type="text" class="form-control" required th:field="*{user.username}" name="user.username" id="user.username">
+	                </div>  
+	                <div class="form-section error-message" th:if="${error}">
+        				<p th:text="${error}"></p>
+      				</div>    
+	                <div class="form-group" >
+	                    <label for="user.password">Password</label>
+	                    <input type="password" class="form-control" required th:field="*{user.password}" name="user.password" id="user.password">
+	                </div> 
+	            	<div class="form-group" >
+	                    <label for="user.role"></label>
+	                    <input type="hidden" class="form-control" required th:field="*{user.role}" name="user.role" id="user.role" value="customer">
+	                </div> 
+                </div> 
+                <div class="right-section">
+                    <div class="form-group">
+	                    <label for="user.people.name">Tên</label>
+	                    <input type="text" class="form-control" required th:field="*{user.people.name}" name="user.people.name" id="user.people.name"
+	                           placeholder="Enter name">
+	                </div>
+                    <div class="form-group">
+	                    <label for="user.people.address">Địa chỉ</label>
+	                    <input type="text" class="form-control" required th:field="*{user.people.address}" name="user.people.address" id="user.people.address"
+	                           placeholder="Enter address">
+	                </div>
+                    <div class="form-group">
+	                    <label for="user.people.idenNumber">Số cccd</label>
+	                    <input type="text" class="form-control" required th:field="*{user.people.idenNumber}" name="user.people.idenNumber" id="user.people.idenNumber"
+	                           placeholder="Enter idenNumber">
+	
+	                </div>
+                    <div class="form-group">
+	                    <label for="user.people.phoneNumber">Số điện thoại</label>
+	                    <input type="text" class="form-control" required th:field="*{user.people.phoneNumber}" name="user.people.phoneNumber" id="user.people.phoneNumber"
+	                           placeholder="Enter phoneNumber">
+	                </div>
+	                <div class="form-group">
+	                    <label for="user.people.dob">Ngày sinh</label>
+	                    <input type="date" class="form-control" required th:field="*{user.people.dob}" name="user.people.dob" id="user.people.dob"
+	                           placeholder="Enter dob">	
+	                </div>
+	                <div class="form-group" >
+	                    <label for="user.people.id"></label>
+	                    <input type="hidden" class="form-control" required th:field="*{user.people.id}" name="user.people.id" id="user.people.id">
+	                </div>
+                </div>              
+            </div>
+            	<input class = "btn btn-success" type="submit" th:value="Save">
+        </form>       			
+    </div>
+</body>
+</html>
+        
+   

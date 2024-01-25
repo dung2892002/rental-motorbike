@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>infor</title>
+    
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .form-section {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .form-section .left-section {
+            flex: 1;
+            padding-right: 20px;
+        }
+        h2 {
+        	text-align: center;
+        	margin-bottom: 30px;
+        }
+        
+        .right-section {
+            flex: 1;
+        }
+        
+        .upload-section {
+            margin-top: 20px;
+        }
+        
+        .div1, .div2 {
+        	margin-right: 100px;
+		  	display: inline-block;
+		}
+        
+        .div3, .div4 {
+        	margin-right: 100px;
+		  	display: inline-block;
+		}
+        .uploaded-image {
+            margin-top: 20px;
+            max-width: 300px;
+        }
+        .error-message {
+		    color: red;
+		    margin-bottom: 10px;
+	    }
+	    
+	    #description {
+	    	width: 500px;
+	    	height: 50px;
+	    }
+	    
+	    #title, #author, #release_date, #num_pages, #category{
+	    	width: 200px;
+	    	height: 30px;
+	    }
+	    
+	    #category {
+	    height: 50px
+	    }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+</head>
+<body>
+	<header class="navbar navbar-expand-lg navbar-dark bg-dark">
+		    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+		    	<ul class="navbar-nav">
+		    		<li class="nav-item">
+		          		<a class="nav-link" href="/customer">Quay lại</a>
+		        	</li>
+		        	<li class="nav-item">
+		          		<a class="nav-link" href="/logout">Đăng xuất</a>
+		        	</li>
+		      	</ul>
+		    </div>
+	</header> 
+
+    <div class="container">
+        <h2>Thông tin tài khoản:</h2>
+        <form th:object="${user}"  
+        	th:action="@{/save_user}" 
+        	th:method="PUT" 
+        	enctype="multipart/form-data" 
+        	th:onsubmit="return confirm('Bạn có chắc chắn với cập nhật này?')">
+            <div class="form-section">
+                <div class="left-section">
+                    <div class="form-group">
+	                    <label for="people.name">Tên:</label>
+	                    <input type="text" class="form-control" required th:field="*{people.name}" name="people.name" id="people.name"
+	                           placeholder="Enter Name">	
+	                </div>
+                    <div class="form-group">
+	                    <label for="people.address">Địa chỉ:</label>
+	                    <input type="text" class="form-control" required th:field="*{people.address}" name="people.address" id="people.address"
+	                           placeholder="Enter address">
+	                </div>
+	                <div class="form-group">
+	                    <label for="people.idenNumber">Số CCCD:</label>
+	                    <input type="text" class="form-control" required th:field="*{people.idenNumber}" name="people.idenNumber" id="people.idenNumber" readonly="readonly">
+	
+	                </div>
+                    <div class="form-group">
+	                    <label for="people.phoneNumber">Số Điện Thoại:</label>
+	                    <input type="text" class="form-control" required th:field="*{people.phoneNumber}" name="people.phoneNumber" id="people.phoneNumber"
+	                           placeholder="Enter phone number">
+	                </div>	
+	                <div class="form-group">
+	                    <label for="people.dob">Ngày sinh</label>
+	                    <input type="date" class="form-control" required th:field="*{people.dob}" name="people.dob" id="people.dob"
+	                           placeholder="Enter dob">	
+	                </div>                
+                </div>
+                
+                <div class="right-section">
+                	<p>Ảnh đại diện</p>
+                    <div class="custom-file">
+	                    <input type="file"  class="custom-file-input" name="userImage" accept="image/jpeg, image/png, image/jpg"  id="userImage" onchange="previewOrUploadImage(this)"/>
+	                    <label class="custom-file-label" for="userImage">Choose file</label>
+	                </div>
+	                <div class="form-group">
+	                    <img id="imgPreview" height="200px" width="200x" th:src="@{${'/userImages/' + user.imageName}}" style="margin-top: 20px" alt=" ">
+	                </div>
+	                <div class="form-group" >
+	                    <label for="people.id"></label>
+	                    <input type="hidden" class="form-control" required th:field="*{people.id}" name="people.id" id="people.id">
+	                </div>
+	                <input type="hidden" name="imgName" th:value="${user.imageName}">
+	           	</div>
+                
+            </div>
+            	<input class = "btn btn-success" type="submit" th:value="Save">
+        </form>       			
+    </div>
+
+    <script>
+	    function previewOrUploadImage(input) {
+	        const imgPreview = document.getElementById('imgPreview');
+	        const imgNameInput = document.getElementById('imgName');
+	        
+	        if (input.files && input.files[0]) {
+	            const reader = new FileReader();
+	            reader.onload = function(e) {
+	                imgPreview.src = e.target.result;
+	            };
+	            reader.readAsDataURL(input.files[0]);
+	            
+	            imgNameInput.value = input.files[0].name;
+	        } else {
+	            imgPreview.src = imgNameInput.value ? '/userImages/' + imgNameInput.value : '';
+	        }
+	    }
+	</script>
+</body>
+</html>
+        
+   
