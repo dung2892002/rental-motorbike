@@ -1,5 +1,6 @@
 package com.example.motorbike.serviceImpls;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,21 @@ public class MotorbikeServiceImpl implements MotorbikeService{
 	public void updateMotorbike(Motorbike motorbike) {
 		motorbikeRepository.save(motorbike);
 		
+	}
+
+	@Override
+	public List<Motorbike> getMotorbikesCostNot(int cost) {
+		return motorbikeRepository.findByCostNot(0);
+	}
+
+	@Override
+	public List<Motorbike> getByTimesAvailable(Date date) {
+		return motorbikeRepository.findMotorbikesWithCurrentContract(date);
+	}
+
+	@Override
+	public List<Motorbike> getMotorbikeOfShowroom() {
+		return motorbikeRepository.findByOfShowroomTrue();
 	}
 
 }

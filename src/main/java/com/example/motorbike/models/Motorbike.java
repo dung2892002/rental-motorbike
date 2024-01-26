@@ -19,6 +19,11 @@ public class Motorbike {
     private String frameNumber;
     private String color;
     private int value;
+    private boolean ofShowroom;
+    
+    private int cost;
+    private String imageName;
+    
 	public Integer getId() {
 		return id;
 	}
@@ -67,4 +72,23 @@ public class Motorbike {
 	public void setValue(int value) {
 		this.value = value;
 	}
+	public int getCost() {
+		return cost;
+	}
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+	public String getImageName() {
+		return imageName;
+	}
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+	public boolean isOfShowroom() {
+		return ofShowroom;
+	}
+	public void setOfShowroom(boolean ofShowroom) {
+		this.ofShowroom = ofShowroom;
+	}
+	
 }

@@ -1,37 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Motorbike</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" 
+    <title>Danh sách xe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" 
 		rel="stylesheet" 
 		integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" 
 		crossorigin="anonymous">
-		<style>
-			.action{
-				display: flex;
-				margin: auto;
-			}
-			
-		</style>
+    <style>
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        h2{
+        	margin-bottom: 20px;
+        }
+        .motorbike-card {
+        	width: 24%;
+            display: flex;
+            align-items: center;
+            margin-left: 1%;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            border-color: black;
+            border-width: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .motorbike-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .motorbike-card img {
+            width: 100px;
+            height: 150px;
+            margin-right: 10px;
+        }
+        
+        .motorbike-card .book-info {
+            flex-grow: 1;
+        }
+        
+        .motorbike-card h3 {
+            margin-top: 0;
+        }
+    </style>
 </head>
 <body>
 	<header class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
 		    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+		    	<ul class="navbar-nav">
 		        	<li class="nav-item">
 		          		<a class="nav-link" href="/logout">Đăng xuất</a>
 		        	</li>
 		      	</ul>
 		    </div>
 		</div>
-	</header> 
-
-	
-	<div class = "container">
-		<div class = "row">
-			<h1>List Motorbike</h1>
-		</div>
-		
+	</header>
 		<form id="searchForm" action="/motorbike/search" method="get">
             <div class="row mb-3">
                 <div class="col-md-6">
@@ -42,42 +74,32 @@
                 </div>
             </div>
         </form>
-        
-		<a th:href = "@{/partner_contract_detail/add}"
-			class = "btn btn-success"> Add Motorbike</a> 
-			
-		<table class = "table table-striped table-bordered">
-			<thead class = "table-dark">
-				<tr> 
-					<th> Tên </th>
-					<th> Tên Công Ty </th>
-					<th> Biển số </th>
-					<th> Số Khung </th>
-					<th> Số Máy </th>
-					<th> Màu </th>
-					<th> Giá trị </th>
-					<th> Action </th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<tr th:each = "motorbike: ${motorbikes}">
-					<td th:text = "${motorbike.name}"></td>
-					<td th:text = "${motorbike.companyName}"> </td>
-					<td th:text = "${motorbike.licensePlate}"> </td>
-					<td th:text = "${motorbike.frameNumber}"> </td>
-					<td th:text = "${motorbike.machineNumber}"> </td>
-					<td th:text = "${motorbike.color}"> </td>
-					<td th:text = "${motorbike.value}"> </td>
-					<td class="action"> 
-						<div>
-							<a th:href = "@{/motorbike/select/{id} (id = ${motorbike.id})}"
-							class = "btn btn-success"> Select </a>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+    <div class="container"> 
+        <div th:each="motorbike : ${motorbikes}" class="motorbike-card">
+            <img th:src="@{${'/motorbikeImages/' + motorbike.imageName}}" alt="Ảnh xe">
+            <div class="motorbike-info">
+                <h3 th:text="${motorbike.name}"></h3>
+                <p>Giá trị xe: <span class="motorbikeValue" th:text="${motorbike.value} + ' vnd'"></span></p>
+                <a class="btn btn-primary" th:href="@{/motorbike/{id}(id=${motorbike.id})}">Xem chi tiết</a>
+            </div>            
+        </div>
+    </div>
+    
 </body>
 </html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var motorbikeValueElements = document.querySelectorAll('.motorbikeValue');
+
+        motorbikeValueElements.forEach(function (element) {
+            var value = parseFloat(element.textContent);
+            element.textContent = formatNumber(value) + ' vnd';
+        });
+
+
+        function formatNumber(number) {
+            return number.toLocaleString('vi-VN');
+        }
+    });
+</script>

@@ -1,5 +1,6 @@
 package com.example.motorbike.services;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,4 +14,7 @@ public interface MotorbikeService {
 	Optional<Motorbike> getMotorbikeById(int id);
 	void deleteMotorbikeById(int id);
 	void updateMotorbike(Motorbike motorbike);
+	List<Motorbike> getMotorbikesCostNot(int cost);
+	List<Motorbike> getByTimesAvailable(Date date);
+	List<Motorbike> getMotorbikeOfShowroom();
 }

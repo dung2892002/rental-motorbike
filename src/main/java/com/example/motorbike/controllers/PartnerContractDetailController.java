@@ -24,6 +24,7 @@ import jakarta.servlet.http.HttpSession;
 public class PartnerContractDetailController {
 	@Autowired
 	MotorbikeServiceImpl motorbikeServiceImpl;
+	
 	@GetMapping("/addTerm")
 	private String addTerm(Model model, @SessionAttribute("partnerContract") PartnerContract partnerContract,
 								@SessionAttribute("partnerContractDetail") PartnerContractDetail partnerContractDetail,

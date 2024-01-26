@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Detail</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" 
+		rel="stylesheet" 
+		integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" 
+		crossorigin="anonymous">
+		
+    <style >
+    	body {
+		    font-family: Arial, sans-serif;
+		    background-color: white;
+		}
+
+		h1 {
+		    color: black;
+		}
+		
+		h2 {
+		    color: black;
+		    margin-top: 20px;
+		}
+		
+		ul {
+		    list-style-type: none;
+		    padding-left: 0;
+		}
+		
+		li {
+		    margin-bottom: 10px;
+		}
+		
+		label {
+		    display: block;
+		    font-weight: bold;
+		    margin-top: 10px;
+		}
+		
+		input[type="submit"] {
+		    background-color: black;
+		    color:  white;
+		    padding: 8px 16px;
+		    border: none;
+		    cursor: pointer;
+		}
+		
+		input[type="number"] {
+		    width: 50px;
+		}
+		.container {
+	        display: flex;
+	        justify-content: space-between;
+	    }
+	
+	    .left-section,
+	    .right-section {
+	        flex-basis: 50%;
+	    }
+	    .image {
+	    	margin-top: 20px;
+	    	margin-bottom: 20px;
+            max-width: 500px;
+	    }
+	    
+	    #quantity {
+	    	margin-bottom: 20px;
+	    }
+	    .error-message {
+	    	color: red;
+	    	font-size: 20px;
+	    	margin-top: 5px;
+	    }
+	    
+	    .review{
+	    	display: flex;
+	    	margin-bottom: 10px;
+	    }
+	    
+	    .review__image{
+	    	margin-right: 10px;
+	    }
+	    
+	    .imageUser{
+	    	width: 60px;
+	    	height: 60px;
+	    	border-radius: 30px;
+	    }
+	    .comment {
+	    	background-color: antiquewhite;
+	    	width: 500px;
+	    	height: 50px;
+	    	border-radius: 10px;
+	    }
+	    .comment-content {
+	    	padding-left: 10px
+	    }
+	    
+	    .review__infor-top{
+	    	display: flex;
+	    }
+	    
+	    .rate{
+	    	margin-left: 20px;
+	    }
+	    
+	    .rate-score{
+	    	color: red;
+	    	font-size: 16px;
+	    }
+    </style>
+</head>
+
+<body>
+	<header class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+		    	<ul class="navbar-nav">
+		        	<li class="nav-item">
+		          		<a class="nav-link" href="/logout">Đăng xuất</a>
+		        	</li>
+		      	</ul>
+		    </div>
+		</div>
+	</header>
+    <div class = "container">
+	    <div class="left-section">
+	        <div class="motorbike-infor">
+	        	<h1>Thông tin</h1>
+		        <h2>Tên xe: <span th:text="${motorbike.name}"></span></h2>
+		    	<h2>Tên công ty: <span th:text="${motorbike.companyName}"></span></h2>
+		    	<h2>Biển số: <span th:text="${motorbike.licensePlate}"></span></h2>
+		    	<h2>Màu sắc: <span th:text="${motorbike.color}"></span></h2>
+		    	<h2>Giá trị: <span class="motorbikeValue" th:text="${motorbike.value}"></span></h2>
+		        <img class = "image" th:src="@{${'/motorbikeImages/' + motorbike.imageName}}" alt="Bìa sách">
+	        </div>
+	    </div>
+	    
+		 <!-- <div class = "right-section">
+		 	<h2>Đánh giá</h2>
+			<div class="reviews">
+			    <ul>
+			        <li th:each="reviewDTO : ${reviewDTOs}">
+			            <div class="review">
+			            	<div class="review__image">
+			            		<img  class="imageUser" th:src="@{${'/userImages/' + reviewDTO.userImage}}" alt="ảnh đại diện">
+			            	</div>
+			            	<div class="review__infor">
+				            	<div class="review__infor-top">
+				            		<div class="userFullname" th:text="${reviewDTO.userFullname}"></div>
+					            	<div class="rate">
+					            		<span th:text="'Đánh giá: ' + ${reviewDTO.rate} + '/5' "  class="rate-score"> </span>
+					            	</div>
+				            	</div>
+				            	
+				            	<div class="comment">
+				            		<span th:text="${reviewDTO.comment}" class="comment-content"> </span>
+				            	</div>
+
+			            	</div>
+			            </div>
+			        </li>
+			    </ul>
+			</div>
+		 	
+		 	<div class="addReview">
+			    <form th:action="@{/review/addReview/{idBook}(idBook=${bookDTO.id})}" method="post" th:object="${newReview}">
+			        <label for="rate">Rate:</label>
+			        <input type="number" id="rate" name="rate" min="1" max="5" required>
+			        <label for="comment">Nội dung:</label>
+			        <textarea id="comment" name="comment" required> </textarea> </br>
+			        <button class = "btn btn-success" type="submit"> Đánh giá </button>
+			    </form>
+		 	</div>
+		    
+	    </div> --> 
+    </div>
+</body>
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var motorbikeValueElements = document.querySelectorAll('.motorbikeValue');
+
+        motorbikeValueElements.forEach(function (element) {
+            var value = parseFloat(element.textContent);
+            element.textContent = formatNumber(value) + ' vnd';
+        });
+
+        function formatNumber(number) {
+            return number.toLocaleString('vi-VN');
+        }
+    });
+</script>

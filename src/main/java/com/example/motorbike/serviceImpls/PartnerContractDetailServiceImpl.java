@@ -1,5 +1,6 @@
 package com.example.motorbike.serviceImpls;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,12 @@ public class PartnerContractDetailServiceImpl implements PartnerContractDetailSe
 	public void createPartnerContractDetail(PartnerContractDetail partnerContractDetail) {
 		partnerContractDetailRepository.save(partnerContractDetail);
 		
+	}
+
+	@Override
+	public List<PartnerContractDetail> getByTimesAvaiable(Date date) {
+		// TODO Auto-generated method stub
+		return partnerContractDetailRepository.findPartnerContractDetailByTime(date);
 	}
 	
 }
