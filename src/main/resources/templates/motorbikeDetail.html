@@ -136,25 +136,25 @@
 	        </div>
 	    </div>
 	    
-		 <!-- <div class = "right-section">
+		<div class = "right-section">
 		 	<h2>Đánh giá</h2>
 			<div class="reviews">
 			    <ul>
-			        <li th:each="reviewDTO : ${reviewDTOs}">
+			        <li th:each="review : ${reviews}">
 			            <div class="review">
 			            	<div class="review__image">
-			            		<img  class="imageUser" th:src="@{${'/userImages/' + reviewDTO.userImage}}" alt="ảnh đại diện">
+			            		<img  class="imageUser" th:src="@{${'/userImages/' + review.user.imageName}}" alt="ảnh đại diện">
 			            	</div>
 			            	<div class="review__infor">
 				            	<div class="review__infor-top">
-				            		<div class="userFullname" th:text="${reviewDTO.userFullname}"></div>
+				            		<div class="userFullname" th:text="${review.user.people.name}"></div>
 					            	<div class="rate">
-					            		<span th:text="'Đánh giá: ' + ${reviewDTO.rate} + '/5' "  class="rate-score"> </span>
+					            		<span th:text="'Đánh giá: ' + ${review.rate} + '/5' "  class="rate-score"> </span>
 					            	</div>
 				            	</div>
 				            	
 				            	<div class="comment">
-				            		<span th:text="${reviewDTO.comment}" class="comment-content"> </span>
+				            		<span th:text="${review.comment}" class="comment-content"> </span>
 				            	</div>
 
 			            	</div>
@@ -164,7 +164,7 @@
 			</div>
 		 	
 		 	<div class="addReview">
-			    <form th:action="@{/review/addReview/{idBook}(idBook=${bookDTO.id})}" method="post" th:object="${newReview}">
+			    <form th:action="@{/review/add}" method="post" th:object="${newReview}">
 			        <label for="rate">Rate:</label>
 			        <input type="number" id="rate" name="rate" min="1" max="5" required>
 			        <label for="comment">Nội dung:</label>
@@ -173,7 +173,7 @@
 			    </form>
 		 	</div>
 		    
-	    </div> --> 
+	    </div>
     </div>
 </body>
 </html>

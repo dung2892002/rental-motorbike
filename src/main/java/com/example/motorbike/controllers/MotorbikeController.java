@@ -1,6 +1,5 @@
 package com.example.motorbike.controllers;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +15,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.example.motorbike.models.Motorbike;
 import com.example.motorbike.models.PartnerContract;
 import com.example.motorbike.models.PartnerContractDetail;
+import com.example.motorbike.models.Review;
 import com.example.motorbike.models.User;
 import com.example.motorbike.serviceImpls.MotorbikeServiceImpl;
 import com.example.motorbike.serviceImpls.PartnerContractDetailServiceImpl;
+import com.example.motorbike.serviceImpls.ReviewServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -31,6 +32,9 @@ public class MotorbikeController {
 	
 	@Autowired
 	PartnerContractDetailServiceImpl partnerContractDetailServiceImpl;
+	
+	@Autowired
+	ReviewServiceImpl reviewServiceImpl;
 	
 	@GetMapping("/")
 	private String getAllMotorbike(Model model, HttpSession session, @SessionAttribute(required = false) User user) {
@@ -87,6 +91,9 @@ public class MotorbikeController {
 	private String showMotorbikeDetail(Model model,@PathVariable int id, HttpSession session) {
 		Motorbike motorbike = motorbikeServiceImpl.getMotorbikeById(id).get();
 		model.addAttribute("motorbike", motorbike);
+		List<Review> reviews = reviewServiceImpl.getReviewOfMotorbike(motorbike);
+		model.addAttribute("reviews", reviews);
+		session.setAttribute("motorbike", motorbike);
 		return "motorbikeDetail";
 	}
 }	
