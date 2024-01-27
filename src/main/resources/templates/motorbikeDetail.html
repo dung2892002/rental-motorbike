@@ -68,8 +68,9 @@
 	    }
 	    .error-message {
 	    	color: red;
-	    	font-size: 20px;
-	    	margin-top: 5px;
+	    }
+	    .success-message {
+	    	color: green;
 	    }
 	    
 	    .review{
@@ -108,6 +109,26 @@
 	    	color: red;
 	    	font-size: 16px;
 	    }
+	    .rating {
+	    	cursor: pointer;
+	    }
+	    .rate {
+        color: gray;
+	    }
+	
+	    .rate span {
+	        color: gold;
+	    }
+	    
+
+	    .order form {
+	        display: flex;
+	        flex-direction: row;
+	        align-items: flex-start;
+	    }
+	    .order form button{
+	        margin: 20px 10px;
+	    }
     </style>
 </head>
 
@@ -117,23 +138,50 @@
 			<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 		    	<ul class="navbar-nav">
 		        	<li class="nav-item">
-		          		<a class="nav-link" href="/logout">Đăng xuất</a>
+		          		<a class="nav-link" href="/motorbike/">Xem xe khác</a>
 		        	</li>
 		      	</ul>
+		      	<ul class="navbar-nav">
+		        	<li class="nav-item">
+		          		<a class="nav-link" href="/order/myOrder">Xem lịch đặt xe</a>
+		        	</li>
+		      	</ul>
+		    	<ul class="navbar-nav">
+		        	<li class="nav-item">
+		          		<a class="nav-link" href="/logout">Đăng xuất</a>
+		        	</li>
+		      	</ul>		      	
 		    </div>
 		</div>
 	</header>
     <div class = "container">
 	    <div class="left-section">
 	        <div class="motorbike-infor">
-	        	<h1>Thông tin</h1>
-		        <h2>Tên xe: <span th:text="${motorbike.name}"></span></h2>
-		    	<h2>Tên công ty: <span th:text="${motorbike.companyName}"></span></h2>
-		    	<h2>Biển số: <span th:text="${motorbike.licensePlate}"></span></h2>
-		    	<h2>Màu sắc: <span th:text="${motorbike.color}"></span></h2>
-		    	<h2>Giá trị: <span class="motorbikeValue" th:text="${motorbike.value}"></span></h2>
+		        <h2><span th:text="${motorbike.name}"></span></h2>
+		    	<h4>Tên công ty: <span th:text="${motorbike.companyName}"></span></h4>
+		    	<h4>Biển số: <span th:text="${motorbike.licensePlate}"></span></h4>
+		    	<h4>Màu sắc: <span th:text="${motorbike.color}"></span></h4>
+		    	<h4>Giá trị: <span class="motorbikeValue" th:text="${motorbike.value}"></span></h4>
 		        <img class = "image" th:src="@{${'/motorbikeImages/' + motorbike.imageName}}" alt="Bìa sách">
 	        </div>
+	        <div class="order">
+	        	<h2>Đặt lịch thuê xe</h2>
+	        	<div class="form-group error-message" th:if="${error}">
+				    <p th:text="${error}"></p>
+				</div>
+				<div class="form-group success-message" th:if="${success}">
+				    <p th:text="${success}"></p>
+				</div>
+			    <form th:action="@{/order/addOrder/}" method="post" th:object="${order}">
+		        	<div>
+			        	<label for="dateStart">Ngày Bắt Đầu:</label>
+				        <input type="date" id="dateStart" name="dateStart" required> </br>
+				        <label for="dateEnd">Ngày Kết Thúc:</label>
+				        <input type="date" id="dateEnd" name="dateEnd" required> </br>
+		        	</div>
+			        <button class = "btn btn-success" type="submit"> Đặt lịch </button>
+			    </form>
+	        </div>    
 	    </div>
 	    
 		<div class = "right-section">
@@ -149,7 +197,7 @@
 				            	<div class="review__infor-top">
 				            		<div class="userFullname" th:text="${review.user.people.name}"></div>
 					            	<div class="rate">
-					            		<span th:text="'Đánh giá: ' + ${review.rate} + '/5' "  class="rate-score"> </span>
+					            		<span th:utext="| ${'★'.repeat(review.rate)}${'☆'.repeat(5 - review.rate)} |"></span>
 					            	</div>
 				            	</div>
 				            	
@@ -166,12 +214,20 @@
 		 	<div class="addReview">
 			    <form th:action="@{/review/add}" method="post" th:object="${newReview}">
 			        <label for="rate">Rate:</label>
-			        <input type="number" id="rate" name="rate" min="1" max="5" required>
-			        <label for="comment">Nội dung:</label>
-			        <textarea id="comment" name="comment" required> </textarea> </br>
-			        <button class = "btn btn-success" type="submit"> Đánh giá </button>
+			        <div class="rating" id="rating">
+			            <span class="star" data-value="1">&#9733;</span>
+			            <span class="star" data-value="2">&#9733;</span>
+			            <span class="star" data-value="3">&#9733;</span>
+			            <span class="star" data-value="4">&#9733;</span>
+			            <span class="star" data-value="5">&#9733;</span>
+			        </div>
+			        <input type="hidden" id="rate" name="rate" value="0" required>
+			        <label for="comment"></label>
+			        <textarea id="comment" name="comment" required></textarea>
+			        <br>
+			        <button class="btn btn-success" type="submit">Gửi Đánh giá</button>
 			    </form>
-		 	</div>
+			</div>
 		    
 	    </div>
     </div>
@@ -191,4 +247,25 @@
             return number.toLocaleString('vi-VN');
         }
     });
+</script>
+
+
+<script>
+    const stars = document.querySelectorAll('.star');
+    const ratingInput = document.getElementById('rate');
+
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            const value = parseInt(star.getAttribute('data-value'));
+            ratingInput.value = value;
+            updateStars(value);
+        });
+    });
+
+    function updateStars(value) {
+        stars.forEach(star => {
+            const starValue = parseInt(star.getAttribute('data-value'));
+            star.style.color = starValue <= value ? 'gold' : 'gray';
+        });
+    }
 </script>

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.motorbike.models.Motorbike;
 import com.example.motorbike.models.PartnerContractDetail;
 import com.example.motorbike.repositories.PartnerContractDetailRepository;
 import com.example.motorbike.services.PartnerContractDetailService;
@@ -30,6 +31,12 @@ public class PartnerContractDetailServiceImpl implements PartnerContractDetailSe
 	public List<PartnerContractDetail> getByTimesAvaiable(Date date) {
 		// TODO Auto-generated method stub
 		return partnerContractDetailRepository.findPartnerContractDetailByTime(date);
+	}
+
+	@Override
+	public List<PartnerContractDetail> getToCheckCreate(Motorbike m, Date dateStart, Date dateEnd) {
+		// TODO Auto-generated method stub
+		return partnerContractDetailRepository.findToCheckCreateOrder(m.getId(), dateStart, dateEnd);
 	}
 	
 }

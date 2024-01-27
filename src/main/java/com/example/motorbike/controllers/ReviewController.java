@@ -20,7 +20,7 @@ public class ReviewController {
 	ReviewServiceImpl reviewServiceImpl;
 	
 	@PostMapping("/add")
-	private String addReviewToMotorbike(Model model,@SessionAttribute("motorbikes") Motorbike motorbike,
+	private String addReviewToMotorbike(Model model,@SessionAttribute("motorbike") Motorbike motorbike,
 			@SessionAttribute(required = false) User user, 
 			@RequestParam("rate") int rate, @RequestParam("comment") String comment) {
 		if (user != null) {

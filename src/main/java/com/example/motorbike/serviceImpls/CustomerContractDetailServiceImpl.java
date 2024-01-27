@@ -1,5 +1,6 @@
 package com.example.motorbike.serviceImpls;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,12 @@ public class CustomerContractDetailServiceImpl implements CustomerContractDetail
 	public List<CustomerContractDetail> getToPay(Partner p) {
 		// TODO Auto-generated method stub
 		return customerContractDetailRepository.findToPay(p.getId());
+	}
+
+	@Override
+	public List<CustomerContractDetail> getToCheckCreate(Motorbike m, Date dateStart, Date dateEnd) {
+		// TODO Auto-generated method stub
+		return customerContractDetailRepository.findToCheckCreate(m.getId(), dateStart, dateEnd);
 	}
 
 }

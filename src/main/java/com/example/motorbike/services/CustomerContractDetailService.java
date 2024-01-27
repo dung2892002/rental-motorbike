@@ -1,5 +1,6 @@
 package com.example.motorbike.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -14,4 +15,5 @@ public interface CustomerContractDetailService {
 	void updateCustomerContractDetail(CustomerContractDetail customerContractDetail);
 	List<CustomerContractDetail> getByMotorbike(Motorbike m);
 	List<CustomerContractDetail> getToPay(Partner p);
+	List<CustomerContractDetail> getToCheckCreate(Motorbike m, Date dateStart, Date dateEnd);
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.motorbike.models.Motorbike;
 import com.example.motorbike.models.PartnerContract;
@@ -88,12 +89,13 @@ public class MotorbikeController {
 	}
 	
 	@GetMapping("/{id}")
-	private String showMotorbikeDetail(Model model,@PathVariable int id, HttpSession session) {
+	private String showMotorbikeDetail(Model model,@PathVariable int id, HttpSession session, RedirectAttributes redirectAttributes) {
 		Motorbike motorbike = motorbikeServiceImpl.getMotorbikeById(id).get();
 		model.addAttribute("motorbike", motorbike);
 		List<Review> reviews = reviewServiceImpl.getReviewOfMotorbike(motorbike);
 		model.addAttribute("reviews", reviews);
 		session.setAttribute("motorbike", motorbike);
+		session.setAttribute("reviews", reviews);
 		return "motorbikeDetail";
 	}
 }	

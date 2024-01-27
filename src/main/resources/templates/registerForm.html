@@ -61,7 +61,14 @@
 	    }
 	    
 	    #category {
-	    height: 50px
+	    	height: 50px
+	    }
+	    
+	    #loggin_button {
+	    	float: left;
+	    }
+	    #submit_button {
+	    	float: right;
 	    }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -139,8 +146,10 @@
 	                </div>
                 </div>              
             </div>
-            	<input class = "btn btn-success" type="submit" th:value="Save">
-        </form>       			
+            	<input class = "btn btn-success" id="submit_button" type="submit" th:value="Save">
+            	<a href="/logout" class="btn btn-danger" id="loggin_button">Quay lại</a>  
+        </form> 
+            			
     </div>
 </body>
 </html>
