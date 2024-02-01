@@ -51,7 +51,6 @@ public class CustomerContract {
 
 	public void setCustomerContractDetails(List<CustomerContractDetail> customerContractDetails) {
 		this.customerContractDetails = customerContractDetails;
-	}
-    
+	}    
 	
 }

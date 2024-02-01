@@ -29,7 +29,7 @@ public class Order {
 	private Date dateStart;
 	private Date dateEnd;
 	private String status;
-	
+	private int cost;
 	public int getId() {
 		return id;
 	}
@@ -65,6 +65,12 @@ public class Order {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public int getCost() {
+		return cost;
+	}
+	public void setCost(int cost) {
+		this.cost = cost;
 	}
 	
 	

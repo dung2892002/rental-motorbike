@@ -16,4 +16,5 @@ public interface CustomerContractDetailService {
 	List<CustomerContractDetail> getByMotorbike(Motorbike m);
 	List<CustomerContractDetail> getToPay(Partner p);
 	List<CustomerContractDetail> getToCheckCreate(Motorbike m, Date dateStart, Date dateEnd);
+	void creatCustomerContractDetail(CustomerContractDetail customerContractDetail);
 }

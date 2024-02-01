@@ -16,6 +16,7 @@ import com.example.motorbike.models.Partner;
 import com.example.motorbike.models.PartnerContract;
 import com.example.motorbike.models.PartnerContractDetail;
 import com.example.motorbike.models.People;
+import com.example.motorbike.serviceImpls.OrderServiceImpl;
 import com.example.motorbike.serviceImpls.PartnerContractDetailServiceImpl;
 import com.example.motorbike.serviceImpls.PartnerContractServiceImpl;
 
@@ -28,7 +29,8 @@ public class PartnerContractController {
 	PartnerContractServiceImpl partnerContractServiceImpl;
 	@Autowired
 	PartnerContractDetailServiceImpl partnerContractDetailServiceImpl;
-	
+	@Autowired
+	OrderServiceImpl orderServiceImpl;
 	@GetMapping("/")
 	private String getListPartnerContract(Model model, HttpSession session) {
 		List<PartnerContract> partnerContracts = partnerContractServiceImpl.getAllPartnerContracts();

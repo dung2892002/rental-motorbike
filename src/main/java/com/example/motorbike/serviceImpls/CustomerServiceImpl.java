@@ -1,5 +1,6 @@
 package com.example.motorbike.serviceImpls;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class CustomerServiceImpl implements CustomerService{
 	public Optional<Customer> getCustomerByUser(User user) {
 		// TODO Auto-generated method stub
 		return customerRepository.findByUser(user);
+	}
+	@Override
+	public List<Customer> getAllCustomers() {
+		// TODO Auto-generated method stub
+		return customerRepository.findAll();
 	}
 
 }

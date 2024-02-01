@@ -1,5 +1,6 @@
 package com.example.motorbike.serviceImpls;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,12 @@ public class OrderServiceImpl implements OrderService{
 	public void updateOrder(Order order) {
 		orderRepository.save(order);
 		
+	}
+
+	@Override
+	public List<Order> getToCheckCreate(int id, Date dateStart, Date dateEnd) {
+		// TODO Auto-generated method stub
+		return orderRepository.findToCheckCreate(id, dateStart, dateEnd);
 	}
 
 }

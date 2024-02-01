@@ -1,5 +1,6 @@
 package com.example.motorbike.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -13,4 +14,5 @@ public interface OrderService {
 	List<Order> getOrderByUser(User user);
 	void createOrder(Order order);
 	void updateOrder(Order order);
+	List<Order> getToCheckCreate(int id, Date dateStart, Date dateEnd);
 }

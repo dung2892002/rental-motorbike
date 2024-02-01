@@ -44,4 +44,10 @@ public class CustomerContractDetailServiceImpl implements CustomerContractDetail
 		return customerContractDetailRepository.findToCheckCreate(m.getId(), dateStart, dateEnd);
 	}
 
+	@Override
+	public void creatCustomerContractDetail(CustomerContractDetail customerContractDetail) {
+		customerContractDetailRepository.save(customerContractDetail);
+		
+	}
+
 }

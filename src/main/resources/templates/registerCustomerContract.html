@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register Customer Contract</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" 
+		rel="stylesheet" 
+		integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" 
+		crossorigin="anonymous">
+    <style>
+        body {
+		    font-family: 'Arial', sans-serif;
+		    background-color: #f5f5f5;
+		    margin: 0;
+		    padding: 0;
+		}
+		
+		.container {
+		    max-width: 1200px;
+		    margin: 0 auto;
+		    padding: 20px;
+		    background-color: #fff;
+		    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+		
+		h1, h2 {
+		    color: #333;
+		}
+		h1 {
+			text-align: center;
+		}
+		
+		.form-section {
+		    margin-bottom: 20px;
+		}
+		
+		.form-section h2 {
+		    border-bottom: 1px solid #ddd;
+		    padding-bottom: 10px;
+		    margin-bottom: 10px;
+		}
+		
+		.form-section p {
+		    margin: 5px 0;
+		}
+		
+		.table-container {
+		    margin-top: 20px;
+		}
+		
+		table {
+		    width: 100%;
+		    border-collapse: collapse;
+		    margin-top: 10px;
+		}
+		
+		th, td {
+		    border: 1px solid #ddd;
+		    padding: 8px;
+		    text-align: left;
+		}
+		
+		th {
+		    background-color: #f2f2f2;
+		}
+		
+		.btn {
+		    margin-top: 10px;
+		}
+		
+		.btn-success {
+		    background-color: #28a745;
+		    color: #fff;
+		}
+		
+		.btn-success:hover {
+		    background-color: #218838;
+		}
+		
+		/* Responsive design for smaller screens */
+		@media (max-width: 768px) {
+		    .container {
+		        padding: 10px;
+		    }
+		}
+    </style>
+</head>
+<body>
+	
+    <div class="container">
+        <h1>Thông tin hợp đồng</h1>
+
+        <a class="btn btn-success" th:if="${registerMode}" href="/customer/select_customer">Chọn khách hàng</a>
+        <a class="btn btn-success" th:if="${registerMode}" href="/order/select">Chọn lịch đặt</a>
+        <form th:object="${customerContract}"  
+        		th:action="@{/customer_contract/save}" 
+      			th:method="POST" 
+      			th:onsubmit="return confirm('Bạn có chắc chắn với cập nhật này?')">
+            <div class="form-section">
+                <h2>Thông tin khách hàng</h2> 
+                <p>Tên: <span th:text="${customerContract.customer.user.people.name}"></span></p>
+                <p>Địa chỉ: <span th:text="${customerContract.customer.user.people.address}"></span></p>
+                <p>Số CCCD: <span th:text="${customerContract.customer.user.people.idenNumber}"></span></p>
+                <p>Số điện thoại: <span th:text="${customerContract.customer.user.people.phoneNumber}"></span></p>
+                <p>Ngày sinh: <span th:text="${customerContract.customer.user.people.dob}"></span></p>
+            </div>
+            <div class="form-section">
+                <h2>Thông tin các xe trong hợp đồng</h2>
+			    <table border="1">
+			        <thead>
+			            <tr>
+			                <th>Tên xe</th>
+			                <th>Biển số</th>
+			                <th>Chi phí</th>
+			                <th>Ngày bắt đầu</th>
+			                <th>Ngày kết thúc</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr th:each="detail : ${customerContract.customerContractDetails}">
+			                <td th:text="${detail.motorbike.name}"></td>
+			                <td th:text="${detail.motorbike.licensePlate}"></td>
+			                <td th:text="${detail.cost}"></td>
+			                <td th:text="${detail.dateStart}"></td>
+			                <td th:text="${detail.dateEnd}"></td>
+			            </tr>
+			        </tbody>
+			    </table>
+            </div>
+            	<input th:if="${registerMode}" class = "btn btn-success" type="submit" th:value="Save">
+        </form>       			
+    </div>
+</body>
+</html>
+        
+   

@@ -32,10 +32,12 @@
 					<th> Họ tên </th> 
 					<th> Tên xe </th>
 					<th> Biển số </th>
-					<th> Giá trị </th>
+					<th> Giá trị xe</th>
+					<th> Chi phí</th>
 					<th> Ngày bắt đầu </th>
 					<th> Ngày kết thúc</th>
 					<th> Trạng thái</th>
+					<th> Action </th>
 				</tr>
 			</thead>
 			
@@ -45,9 +47,16 @@
 					<td th:text = "${order.motorbike.name}"> </td>
 					<td th:text = "${order.motorbike.licensePlate}"> </td>
 					<td th:text = "${order.motorbike.value}"> </td>
+					<td th:text = "${order.cost} + '/ngày'"></td>
 					<td th:text = "${order.dateStart}"> </td>
 					<td th:text = "${order.dateEnd}"> </td>
 					<td th:text = "${order.status}"> </td>
+					<td class="action">	
+						<div th:if ="${registerMode}">
+							<a th:href = "@{/order/select/{id} (id = ${order.id})}"
+							class = "btn btn-success"> Select </a>
+						</div>
+					</td>
 				</tr>
 			</tbody>
 		</table>
