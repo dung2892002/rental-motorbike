@@ -47,4 +47,10 @@ public class OrderServiceImpl implements OrderService{
 		return orderRepository.findToCheckCreate(id, dateStart, dateEnd);
 	}
 
+	@Override
+	public List<Order> getOrderByUserAndStatus(User user, String status) {
+		// TODO Auto-generated method stub
+		return orderRepository.findByUserAndStatus(user, status);
+	}
+
 }

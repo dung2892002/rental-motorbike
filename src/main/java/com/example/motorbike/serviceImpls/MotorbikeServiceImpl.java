@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.motorbike.models.Motorbike;
+import com.example.motorbike.models.Partner;
 import com.example.motorbike.repositories.MotorbikeRepository;
 import com.example.motorbike.services.MotorbikeService;
 
@@ -51,6 +52,12 @@ public class MotorbikeServiceImpl implements MotorbikeService{
 	@Override
 	public List<Motorbike> getMotorbikeOfShowroom() {
 		return motorbikeRepository.findByOfShowroomTrue();
+	}
+
+	@Override
+	public List<Motorbike> getMotorbikeOfPartner(Partner partner) {
+		// TODO Auto-generated method stub
+		return motorbikeRepository.findMotorbikesByPartner(partner.getId());
 	}
 
 }

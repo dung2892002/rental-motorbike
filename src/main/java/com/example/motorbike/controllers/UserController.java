@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,7 +60,9 @@ public class UserController {
 	    }
 
 	    if (!fileUserName.isEmpty()) {
-	        imageUUID = fileUserName.getOriginalFilename();
+	    	String userId = String.valueOf(user.getId());
+	    	String fileExtension = FilenameUtils.getExtension(fileUserName.getOriginalFilename());
+	    	imageUUID = userId + "_profile." + fileExtension;
 	        Path fileNameAndPath = Paths.get(uploadDir, imageUUID);
 	        Files.write(fileNameAndPath, fileUserName.getBytes());
 	    } else {

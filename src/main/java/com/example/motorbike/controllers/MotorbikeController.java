@@ -50,6 +50,20 @@ public class MotorbikeController {
 		}
 	}
 	
+	@GetMapping("/select")
+	private String showMotorbikeOfPartner(HttpSession sesion, Model model, @SessionAttribute("partnerContract") PartnerContract partnerContract) {
+		if(partnerContract.getPartner().getId() != null) {
+			List<Motorbike> motorbikes = motorbikeServiceImpl.getMotorbikeOfPartner(partnerContract.getPartner());
+			model.addAttribute("motorbikes", motorbikes);
+			model.addAttribute("registerMode", true);
+			sesion.setAttribute("motorbikes", motorbikes);
+			return "tableMotorbike";
+		} else {
+			model.addAttribute("error", "Chọn đối tác trước");
+			return "forward:/partner_contract/add";
+		}
+	}
+	
 	@GetMapping("/search")
 	private String searchMotorbike(Model model, @SessionAttribute("motorbikes") List<Motorbike> motorkibes, @RequestParam String keyword, @SessionAttribute(required = false) User user) {
 		List<Motorbike> searchMotorbikes = new ArrayList<>();

@@ -75,7 +75,10 @@
 		.btn-success:hover {
 		    background-color: #218838;
 		}
-		
+		.error-message {
+		    color: red;
+		    margin-top: 5px;
+	    }
 		/* Responsive design for smaller screens */
 		@media (max-width: 768px) {
 		    .container {
@@ -91,6 +94,9 @@
 
         <a class="btn btn-success" th:if="${registerMode}" href="/customer/select_customer">Chọn khách hàng</a>
         <a class="btn btn-success" th:if="${registerMode}" href="/order/select">Chọn lịch đặt</a>
+        <div class="form-group error-message" th:if="${error}">
+	        	<p th:text="${error}"></p>
+	     </div>
         <form th:object="${customerContract}"  
         		th:action="@{/customer_contract/save}" 
       			th:method="POST" 

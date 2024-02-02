@@ -14,7 +14,7 @@ import com.example.motorbike.models.User;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer>{
 	List<Order> findByUser(User user);
-	
+	List<Order> findByUserAndStatus(User user, String status);
 	@Query(value = "SELECT *\r\n"
 			+ "FROM orders\r\n"
 			+ "WHERE user_id = :userId\r\n"

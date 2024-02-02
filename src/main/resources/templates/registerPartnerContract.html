@@ -90,7 +90,7 @@
         <h1>Thông tin hợp đồng</h1>
 
         <a class="btn btn-success" th:if="${registerMode}" href="/partner/select_partner">Chọn đối tác</a>
-        <a class="btn btn-success" th:if="${registerMode}" href="/motorbike/">Chọn xe</a>
+        <a class="btn btn-success" th:if="${registerMode}" href="/motorbike/select">Chọn xe</a>
         <form th:object="${partnerContract}"  
         		th:action="@{/partner_contract/save}" 
       			th:method="POST" 

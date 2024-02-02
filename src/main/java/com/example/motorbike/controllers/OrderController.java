@@ -54,8 +54,8 @@ public class OrderController {
 	
 	@GetMapping("/select")
 	private String showOrderOfCustomer(HttpSession sesion, Model model, @SessionAttribute("customerContract") CustomerContract customerContract) {
-		if(customerContract.getCustomer() != null) {
-			List<Order> orders = orderServiceImpl.getOrderByUser(customerContract.getCustomer().getUser());
+		if(customerContract.getCustomer().getId() != null) {
+			List<Order> orders = orderServiceImpl.getOrderByUserAndStatus(customerContract.getCustomer().getUser(), "Not approved");
 			model.addAttribute("orders",orders);
 			model.addAttribute("registerMode", true);
 			List<Order> ordersSelected = new ArrayList<>();
@@ -64,7 +64,7 @@ public class OrderController {
 			return "listOrder";
 		} else {
 			model.addAttribute("error", "Chọn khách hàng trước");
-			return "redirect:/customer_contract/add";
+			return "forward:/customer_contract/add";
 		}
 	}
 	

@@ -12,6 +12,7 @@ import com.example.motorbike.models.User;
 public interface OrderService {
 	List<Order> getAllOrder();
 	List<Order> getOrderByUser(User user);
+	List<Order> getOrderByUserAndStatus(User user, String status);
 	void createOrder(Order order);
 	void updateOrder(Order order);
 	List<Order> getToCheckCreate(int id, Date dateStart, Date dateEnd);

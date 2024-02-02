@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.motorbike.models.Motorbike;
+import com.example.motorbike.models.Partner;
 
 @Service
 public interface MotorbikeService {
@@ -17,4 +18,5 @@ public interface MotorbikeService {
 	List<Motorbike> getMotorbikesCostNot(int cost);
 	List<Motorbike> getByTimesAvailable(Date date);
 	List<Motorbike> getMotorbikeOfShowroom();
+	List<Motorbike> getMotorbikeOfPartner(Partner partner);
 }
